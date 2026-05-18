@@ -1,13 +1,12 @@
 <?php
 session_start();
 
-// 1. Check if running live on Railway, otherwise fall back to local XAMPP
-define('DB_HOST', getenv('MYSQLHOST') ?: '127.0.0.1');
+/// 1. Prioritize Railway's internal private networking variables, fallback to public, fallback to XAMPP
+define('DB_HOST', getenv('MYSQLINTERNALHOST') ?: (getenv('MYSQLHOST') ?: '127.0.0.1'));
 define('DB_USER', getenv('MYSQLUSER') ?: 'root');
 define('DB_PASS', getenv('MYSQLPASSWORD') ?: '');
 define('DB_NAME', getenv('MYSQLDATABASE') ?: 'student_network');
 define('DB_PORT', getenv('MYSQLPORT') ?: '3306');
-
 // 2. Create connection
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
 
