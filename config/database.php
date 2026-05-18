@@ -1,10 +1,22 @@
 <?php
 session_start();
 
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'student_network');
+<?php
+// 1. Check if running live on Railway, otherwise fall back to local XAMPP
+$host     = getenv('MYSQLHOST')     ?: '127.0.0.1';
+$user     = getenv('MYSQLUSER')     ?: 'root';
+$password = getenv('MYSQLPASSWORD') ?: '';
+$database = getenv('MYSQLDATABASE') ?: 'student_network'; 
+$port     = getenv('MYSQLPORT')     ?: '3306';
+
+// 2. Establish the connection
+$conn = new mysqli($host, $user, $password, $database, $port);
+
+// 3. Catch connection errors safely
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
+}
+?>
 
 // Create connection
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
