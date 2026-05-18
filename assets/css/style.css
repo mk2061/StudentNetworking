@@ -1,0 +1,851 @@
+<?php
+header('Content-Type: text/css');
+?>
+/* ============================================
+   Design Tokens & CSS Variables
+   ============================================ */
+:root {
+  /* Color Palette - Modern Professional */
+  --color-primary: #6366f1;
+  --color-primary-dark: #4f46e5;
+  --color-primary-light: #818cf8;
+  --color-secondary: #ec4899;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  
+  /* Neutrals */
+  --color-white: #ffffff;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  
+  /* Spacing Scale - 4pt System */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+  
+  /* Z-Index */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal: 1050;
+  --z-loading: 9999;
+}
+
+/* ============================================
+   Base Styles & Reset
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--color-gray-800);
+  background-color: var(--color-gray-50);
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   Button Components - FIXED
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  border-radius: var(--radius-lg);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  background: transparent;
+  color: var(--color-gray-700);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline-primary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.btn-outline-primary:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+.btn-light {
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  border: 1px solid var(--color-gray-200);
+}
+
+.btn-light:hover {
+  background: var(--color-gray-200);
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 12px;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--color-gray-600);
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: var(--color-primary);
+  background: var(--color-gray-100);
+}
+
+/* ============================================
+   Action Chips - FIXED
+   ============================================ */
+.action-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 15px;
+  background: var(--color-gray-100);
+  border: none;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-gray-700);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.action-chip:active {
+  transform: scale(0.95);
+}
+
+.action-chip i {
+  font-size: 12px;
+}
+
+.action-chip.primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: white;
+}
+
+.action-chip.danger {
+  background: var(--color-danger);
+  color: white;
+}
+
+.action-chip.success {
+  background: var(--color-success);
+  color: white;
+}
+
+/* ============================================
+   Post Card - FIXED
+   ============================================ */
+.post-card {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-gray-100);
+  transition: all var(--transition-fast);
+}
+
+.post-card:active {
+  transform: scale(0.99);
+}
+
+/* Post Actions - FIXED */
+.post-actions {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 1px solid var(--color-gray-100);
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-gray-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.action-btn:active {
+  transform: scale(0.95);
+  background: var(--color-gray-100);
+}
+
+.action-btn i {
+  font-size: 18px;
+}
+
+.action-btn.liked {
+  color: var(--color-danger);
+}
+
+.action-btn.liked i {
+  animation: heartBeat 0.3s ease;
+}
+
+/* ============================================
+   Story Component - FIXED
+   ============================================ */
+.stories-container {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px 0;
+  scrollbar-width: none;
+}
+
+.stories-container::-webkit-scrollbar {
+  display: none;
+}
+
+.story-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+  min-width: 70px;
+}
+
+.story-circle:active {
+  transform: scale(0.95);
+}
+
+.story-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.story-avatar.bg-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.story-circle small {
+  font-size: 11px;
+  color: var(--color-gray-600);
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================
+   Avatar Components - FIXED
+   ============================================ */
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-lg {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ============================================
+   Create Post Box - FIXED
+   ============================================ */
+.create-post-box {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.create-post-trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 30px;
+  font-size: 14px;
+  color: var(--color-gray-500);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.create-post-trigger:active {
+  background: var(--color-gray-100);
+}
+
+.create-post-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-gray-100);
+}
+
+.create-post-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-gray-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.create-post-action:active {
+  background: var(--color-gray-100);
+  transform: scale(0.98);
+}
+
+/* ============================================
+   Comments Section - FIXED
+   ============================================ */
+.comments-section {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-gray-100);
+}
+
+.comment {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.comment-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment-bubble {
+  flex: 1;
+  background: var(--color-gray-50);
+  padding: 8px 12px;
+  border-radius: 16px;
+}
+
+.comment-name {
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.comment-text {
+  font-size: 13px;
+  color: var(--color-gray-700);
+}
+
+.comment-time {
+  font-size: 10px;
+  color: var(--color-gray-400);
+  margin-top: 4px;
+}
+
+.comment-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 24px;
+  font-size: 13px;
+  background: white;
+}
+
+.comment-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.comment-submit {
+  padding: 8px 20px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.comment-submit:active {
+  transform: scale(0.95);
+}
+
+/* ============================================
+   Media Gallery - FIXED
+   ============================================ */
+.post-media {
+  display: grid;
+  gap: 4px;
+  margin: 12px 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.post-media.single {
+  grid-template-columns: 1fr;
+}
+
+.post-media.double {
+  grid-template-columns: 1fr 1fr;
+}
+
+.post-media.triple {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.media-item {
+  aspect-ratio: 1;
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  background: var(--color-gray-100);
+}
+
+/* ============================================
+   Bottom Navigation - FIXED
+   ============================================ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+  border-top: 1px solid var(--color-gray-200);
+  z-index: var(--z-fixed);
+}
+
+/*.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--color-gray-400);
+  font-size: 11px;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  padding: 4px 8px;
+}*/
+
+.nav-item:active {
+  transform: scale(0.95);
+}
+
+.nav-item i {
+  font-size: 22px;
+}
+
+.nav-item.active {
+  color: var(--color-primary);
+}
+
+/* ============================================
+   Form Elements - FIXED
+   ============================================ */
+.form-input {
+  width: 100%;
+  padding: 6px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  background: white;
+  transition: all var(--transition-fast);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+/* ============================================
+   Modal Styles - FIXED
+   ============================================ */
+.modal-simple .modal-content {
+  border-radius: 20px;
+  border: none;
+  margin: 16px;
+}
+
+.modal-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.modal-body {
+  padding: 16px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modal-footer {
+  padding: 16px;
+  border-top: 1px solid var(--color-gray-100);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* ============================================
+   Toast Notification - FIXED
+   ============================================ */
+.toast-notification {
+  position: fixed;
+  bottom: 80px;
+  left: 16px;
+  right: 16px;
+  background: var(--color-gray-800);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  text-align: center;
+  z-index: var(--z-loading);
+  animation: slideUp 0.3s ease;
+}
+
+/* ============================================
+   Loading Spinner
+   ============================================ */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-gray-200);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+/* ============================================
+   Empty State
+   ============================================ */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  background: white;
+  border-radius: var(--radius-xl);
+}
+
+.empty-icon {
+  font-size: 64px;
+  color: var(--color-gray-300);
+  margin-bottom: 16px;
+}
+
+.empty-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.empty-text {
+  color: var(--color-gray-500);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* ============================================
+   Mobile Responsive - FIXED
+   ============================================ */
+@media (max-width: 768px) {
+  :root {
+    --space-4: 14px;
+    --space-5: 16px;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+  
+  /* Make all buttons have 44px minimum height for better touch */
+  .btn,
+  .action-btn,
+  .nav-item,
+  .create-post-trigger {
+    min-height: 44px;
+  }
+  
+  /* Larger touch targets for mobile */
+  .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .post-card {
+    margin-bottom: 8px;
+    padding: 12px;
+  }
+  
+  .story-avatar {
+    width: 56px;
+    height: 56px;
+  }
+  
+  /* Prevent zoom on iOS inputs */
+  input, 
+  textarea, 
+  select {
+    font-size: 12px !important;
+  }
+  
+  /* Active state feedback for touch */
+  .action-chip:active,
+  .btn:active,
+  .nav-item:active {
+    opacity: 0.7;
+  }
+}
+
+/* ============================================
+   Tablet Styles
+   ============================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .dashboard-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+/* ============================================
+   Dark Mode Support
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-white: #1f2937;
+    --color-gray-50: #111827;
+    --color-gray-100: #1f2937;
+    --color-gray-200: #374151;
+    --color-gray-300: #4b5563;
+    --color-gray-400: #6b7280;
+    --color-gray-500: #9ca3af;
+    --color-gray-600: #d1d5db;
+    --color-gray-700: #e5e7eb;
+    --color-gray-800: #f3f4f6;
+  }
+  
+  body {
+    background-color: #111827;
+  }
+  
+  .post-card,
+  .create-post-box,
+  .modal-content,
+  .empty-state {
+    background: var(--color-gray-100);
+    border-color: var(--color-gray-200);
+  }
+  
+  .comment-bubble {
+    background: var(--color-gray-200);
+  }
+  
+  .form-input,
+  .comment-input {
+    background: var(--color-gray-200);
+    border-color: var(--color-gray-300);
+    color: var(--color-gray-700);
+  }
+  
+  .bottom-nav {
+    background: var(--color-gray-100);
+    border-top-color: var(--color-gray-200);
+  }
+  
+  .action-chip {
+    background: var(--color-gray-200);
+    color: var(--color-gray-600);
+  }
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 12px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-3 { margin-bottom: 12px; }
+.mb-4 { margin-bottom: 16px; }
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
